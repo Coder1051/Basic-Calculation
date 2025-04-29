@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculation</title>
+    <link rel="stylesheet" href="/lib/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #d2fbde, #6ff1ae);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .calculator-box {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-box:hover {
+            transform: scale(1.01);
+        }
+
+        .result-toast {
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: forestgreen;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 calculator-box">
+                <h1 class="text-center">Basic Calculations</h1>
+
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="firstNumber" placeholder="Enter First Number">
+                    <label for="firstNumber">First Number</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="secondNumber" placeholder="Enter Second Number">
+                    <label for="secondNumber">Second Number</label>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button class="btn btn-success btn-lg" onclick="BasicCal()">Calculate</button>
+                </div>
+
+                <div id="result" class="alert alert-info text-center d-none result-toast"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function BasicCal() {
+            const first = parseFloat(document.getElementById('firstNumber').value);
+            const second = parseFloat(document.getElementById('secondNumber').value);
+            const resultDiv = document.getElementById('result');
+
+            if (isNaN(first) || isNaN(second)) {
+                resultDiv.classList.remove('d-none', 'alert-info');
+                resultDiv.classList.add('alert-danger');
+                resultDiv.innerHTML = "Please enter valid numbers.";
+                return;
+            }
+
+            const sum = first + second;
+            const diff = first - second;
+            const product = first * second;
+            const reminder = first / second;
+            const modulus = first % second;
+
+            resultDiv.classList.remove('d-none', 'alert-danger');
+            resultDiv.classList.add('alert-info');
+            resultDiv.innerHTML = `
+                <strong>Sum:</strong> ${sum}<br>
+                <strong>Difference:</strong> ${diff}<br>
+                <strong>Product:</strong> ${product}<br>
+                <strong>Division:</strong> ${reminder}<br>
+                <strong>Percentage:</strong> ${modulus}
+            `;
+
+            // input field empty
+            document.getElementById('firstNumber').value = "";
+            document.getElementById('secondNumber').value = "";
+        }
+    </script>
+</body>
+
+</html>
